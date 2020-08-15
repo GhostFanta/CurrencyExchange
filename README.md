@@ -13,7 +13,10 @@
 + [ ] Bonus: add another route that accepts the base as a query parameter. I.e api.com/CAD?base=USD **(Ps: I assume this endpoint reflect a one-to-one relation, that is, we only consider rates between two currencies)**
 
 ### Dependencies
-
++ axios: rest api client
++ express: RESTful api framework
++ mongoose: currency info storage
++ nodemon: dev app executor
 
 ### Setup
 Run in dev mode:
@@ -21,7 +24,12 @@ Run in dev mode:
 npm run dev
 ```
 
-Run in dockerized mode:
+Run in prod mode:
+```
+npm start
 ```
 
+Run in dockerized mode:
+```
+docker-compose up --build -d
 ```
