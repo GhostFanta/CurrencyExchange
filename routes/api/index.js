@@ -64,4 +64,11 @@ router.get("/exchange_rates/:currency", function ( req, res ) {
     }
 });
 
+router.post("/currencies", function (req, res, next) {
+    let currency = new Currency({currency: "AUD"});
+    return currency.save().then(function () {
+        return res.json({currency: currency.toJson()});
+    })
+});
+
 module.exports = router;
