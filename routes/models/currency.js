@@ -6,7 +6,6 @@ let Currency = new mongoose.Schema({
 
 Currency.methods.toJson = function () {
     return {
-        id: this._id,
         currency: this.currency
     }
 };

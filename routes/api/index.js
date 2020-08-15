@@ -4,9 +4,12 @@ let Currency = mongoose.model("Currency");
 
 let axios = require('axios');
 
-async function getExchangeRate(baseCurrency){
-    const res = await ax.get(`${baseCurrency}`);
-    return res;
+function getExchangeRate(baseCurrency){
+    return ax.get(`?base=${baseCurrency}`);
+}
+
+function getQueriedExchangeRate(baseCurrency, symbol) {
+    return ax.get(`?base=${baseCurrency}&symbols=${symbol}`);
 }
 
 const ax = axios.create({
@@ -17,39 +20,48 @@ const ax = axios.create({
 });
 
 // Test if server works
-router.get("/ping", function (req, res, next) {
+router.get("/ping", function (req, res ) {
     return res.json({pong: "true"});
 });
 
 // Returns all currencies
-router.get("/currencies",function (req, res, next) {
+router.get("/currencies", function (req, res, next) {
     Promise.all([Currency.find({}).sort({currency: "desc"})]).then(function (results) {
-        return res.json({
-            currencies: results[0].map(item => {
-                return item
+        return res.json(
+            results[0].map(item => {
+                return item.toJson();
             })
-        })
+        )
     })
 });
 
-// Return exchange rate based on queried currency
-router.get("/exchange_rates/:currency", function (req, res, next) {
-    const baseCurrency = req.params['currency'];
-    const response = getExchangeRate(baseCurrency)
-        .then(res => {
-        if(res.status !== 200){
-            throw Error(res.statusText);
-        } else {
-            const rates = res.data;
-            return res.json(response.data);
-        }
-    })
-        .catch(e => {res.json(e)});
-});
-
-// Bouns:Return exchange rate based on given query parameter
-router.get("/exchange_rates/", function (req, res, next) {
-
+// Return exchange rate based on queried currency + Bouns:Return exchange rate based on given query parameter
+router.get("/exchange_rates/:currency", function ( req, res ) {
+    const base = req.query.base;
+    const currency = req.params['currency'];
+    if (base){
+        const response = getQueriedExchangeRate(base, currency)
+            .then(response => {
+                if(response.status !== 200) {
+                    throw Error(res.statusText);
+                } else {
+                    const rates = response.data
+                    return res.json(rates);
+                }
+            })
+            .catch(e => {throw Error(e)});
+    } else {
+        const response = getExchangeRate(currency)
+            .then(response => {
+                if(response.status !== 200) {
+                    throw Error(res.statusText);
+                } else {
+                    const rates = response.data;
+                    return res.json(rates);
+                }
+            })
+            .catch(e => {throw Error(e)});
+    }
 });
 
 module.exports = router;

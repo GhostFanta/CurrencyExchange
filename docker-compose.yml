@@ -13,6 +13,8 @@ services:
   mongo:
     image: mongo
     container_name: currency_mongo
+    volumes:
+    - './mongo:/data/db'
     ports:
     - 27017:27017
   nginx:
