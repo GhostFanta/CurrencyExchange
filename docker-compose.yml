@@ -1,0 +1,24 @@
+version: "2"
+services:
+  api:
+    build: ./api/
+    image: currency_api
+    container_name: currency_api
+    ports:
+    - 3006:3006
+    expose:
+      - 3006
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    container_name: currency_mongo
+    ports:
+    - 27017:27017
+  nginx:
+    image: nginx
+    container_name: currency_nginx
+    ports:
+    - 84:80
+    depends_on:
+      - api

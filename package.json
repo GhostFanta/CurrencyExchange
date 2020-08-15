@@ -1,0 +1,33 @@
+{
+  "name": "currency_exchange",
+  "version": "1.0.0",
+  "description": "code challenge for currency_exchange",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GhostFanta/CurrencyExchange.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "alex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GhostFanta/CurrencyExchange/issues"
+  },
+  "homepage": "https://github.com/GhostFanta/CurrencyExchange#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "core-js": "^3.6.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "mongoose": "^5.10.0",
+    "nodemon": "^2.0.4"
+  }
+}
