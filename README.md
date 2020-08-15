@@ -4,6 +4,7 @@
 
 
 ### Requirements:
+
 +[x] Create Node.js API 
 +[x] Connect to RatesApi.io 
 +[x] Create 2 routes. One route returns all the currencies, the other route takes in a currency as a route parameter and returns the exchange rate for that currency
