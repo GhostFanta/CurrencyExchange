@@ -5,6 +5,9 @@ let http = require('http'),
     cors = require("cors"),
     mongoose = require("mongoose");
 
+const swaggerUI = require('swagger-ui-express');
+const swaggerDocument = require("./docs/swagger");
+
 console.log(process.env.NODE_ENV);
 
 let app = express();
@@ -20,6 +23,7 @@ if(isProd) {
 
 require('./routes/models/currency');
 
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use(cors());
 app.use(require("./routes"));
 

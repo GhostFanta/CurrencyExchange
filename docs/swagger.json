@@ -1,0 +1,96 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The API documentation for currency exchange api",
+    "version": "1.0.0",
+    "title": "Currency Exchange",
+    "contact": {
+      "email": "azc.aizichu@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "159.203.17.226:84",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/ping": {
+      "get": {
+        "summary": "Check if the api is alive",
+        "responses": {
+          "200": {
+            "description": "pong"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/currencies": {
+      "get": {
+        "summary": "List all currencies that can be exchanged.",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved."
+          },
+          "404": {
+            "description": "No information."
+          }
+        }
+      }
+    },
+    "/exchange_rates/{base_currency}": {
+      "get": {
+        "summary": "List exchange rate based on given base currency.",
+        "parameters": [
+          {
+            "name": "base_currency",
+            "in": "path",
+            "description": "Name of the base currency",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved"
+          }
+        }
+      }
+    },
+    "/exchange_rates/{symbol_currency}?base={base_currency}": {
+      "get": {
+        "summary": "Show exchange rate based on given base currency and symbol currency.",
+        "parameters": [
+          {
+            "name": "symbol_currency",
+            "in": "path",
+            "description": "Name of the symbol currency.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "base_currency",
+            "in": "query",
+            "description": "Name of the base currency.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved."
+          },
+          "404": {
+            "description": "No result."
+          }
+        }
+      }
+    }
+  }
+}
